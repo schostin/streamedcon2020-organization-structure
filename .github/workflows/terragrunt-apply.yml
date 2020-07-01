@@ -1,17 +1,17 @@
-name: Terragrunt plan
+name: Terragrunt apply
 on:
   push:
-    branches-ignore:
+    branches:
       - master
 jobs:
-  terragrunt_plan:
-    name: Terragrunt plan
+  terragrunt_apply:
+    name: Terragrunt apply
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-      - name: Plan
-        uses: sebastianneb-streamedcon2020/streamedcon-terragrunt-deployer-image/actions/terragrunt-plan@terragruntApplyAndPlan
+      - name: Apply
+        uses: sebastianneb-streamedcon2020/streamedcon-terragrunt-deployer-image/actions/terragrunt-apply@terragruntApplyAndPlan
         env:
           ADMIN_TOKEN_GITHUB: ${{ secrets.ADMIN_TOKEN_GITLAB }}
         with:
