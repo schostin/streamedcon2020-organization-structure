@@ -8,6 +8,11 @@ variable "org_id" {
   description = "The organization id, under which folders get created"
 }
 
+variable "domain" {
+  type = string
+  description = "The domain of the organization"
+}
+
 variable "billing_account" {
   type        = string
   description = "The billing account id, used to associate billing with created projects."

@@ -114,6 +114,9 @@ module "online_banking_repository" {
   source = "github.com/sebastianneb-streamedcon2020/terraform-module-github-actions-gcloud?ref=v1.4.0"
 
   project_id                 = var.project_id
+  org_id                     = var.org_id
+  billing_account            = var.billing_account
+  domain                     = var.domain
   name                       = "team-online-banking"
   description                = "Repository to manage all online-banking projects and folders"
   bucket                     = module.online_banking_bucket.name
