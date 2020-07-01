@@ -105,7 +105,7 @@ module "online_banking_bucket" {
   prefix          = random_string.online_banking_prefix.result
   location        = "EU"
   set_admin_roles = true
-  admins          = ["service-account:${google_service_account.online_banking.email}"]
+  admins          = ["serviceAccount:${google_service_account.online_banking.email}"]
   versioning = {
     online-banking = true
   }
