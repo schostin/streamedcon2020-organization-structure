@@ -94,6 +94,7 @@ resource "random_string" "online_banking_prefix" {
   length  = 8
   special = false
   number  = false
+  upper = false
 }
 
 module "online_banking_bucket" {
