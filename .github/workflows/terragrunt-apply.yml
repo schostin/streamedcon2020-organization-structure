@@ -1,0 +1,19 @@
+name: Terragrunt apply
+on:
+  push:
+    branches:
+      - master
+jobs:
+  terragrunt_apply:
+    name: Terragrunt apply
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Apply
+        uses: sebastianneb-streamedcon2020/streamedcon-terragrunt-deployer-image/actions/terragrunt-apply@terragruntApplyAndPlan
+        env:
+          ADMIN_TOKEN_GITHUB: ${{ secrets.ADMIN_TOKEN_GITLAB }}
+        with:
+          gcloud_credentials_content: ${{ secrets.GOOGLE_CREDENTIALS }}
+          terragrunt_subfolder: "organization-structure"

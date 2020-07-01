@@ -1,0 +1,19 @@
+name: Terragrunt plan
+on:
+  push:
+    branches-ignore:
+      - master
+jobs:
+  terragrunt_plan:
+    name: Terragrunt plan
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Plan
+        uses: sebastianneb-streamedcon2020/streamedcon-terragrunt-deployer-image/actions/terragrunt-plan@terragruntApplyAndPlan
+        env:
+          ADMIN_TOKEN_GITHUB: ${{ secrets.ADMIN_TOKEN_GITLAB }}
+        with:
+          gcloud_credentials_content: ${{ secrets.GOOGLE_CREDENTIALS }}
+          terragrunt_subfolder: "organization-structure"
