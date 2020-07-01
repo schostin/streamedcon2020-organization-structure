@@ -22,3 +22,8 @@ variable "github_owner" {
   type        = string
   description = "The github organization or user under which the repository will be created"
 }
+
+variable "github_template_repository" {
+  type        = string
+  description = "The github template repository"
+}

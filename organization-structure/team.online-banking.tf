@@ -1,6 +1,19 @@
 locals {
   iam_roles_per_folder = toset([
-    "roles/resourcemanager.folderAdmin"
+    "roles/resourcemanager.folderAdmin",
+    "roles/compute.networkAdmin",
+    "roles/compute.xpnAdmin",
+    "roles/iam.securityAdmin",
+    "roles/iam.serviceAccountAdmin",
+    "roles/resourcemanager.folderAdmin",
+    "roles/resourcemanager.projectCreator",
+    "roles/resourcemanager.projectDeleter",
+    "roles/resourcemanager.projectIamAdmin",
+    "roles/resourcemanager.projectMover",
+  ])
+  iam_roles_in_organization = toset([
+    "roles/billing.user",
+    "roles/resourcemanager.organizationViewer",
   ])
 }
 
@@ -23,6 +36,13 @@ resource "google_folder_iam_binding" "online_banking_playgrounds" {
   members = [
     "serviceAccount:${google_service_account.online_banking.email}",
   ]
+}
+
+resource "google_organization_iam_member" "binding" {
+  for_each = local.iam_roles_in_organization
+  org_id   = var.org_id
+  role     = each.value
+  member   = "serviceAccount:${google_service_account.online_banking.email}"
 }
 
 resource "google_folder" "online_banking_development" {
@@ -88,4 +108,18 @@ module "online_banking_bucket" {
   versioning = {
     online-banking = true
   }
+}
+
+module "online_banking_repository" {
+  source = "github.com/sebastianneb-streamedcon2020/terraform-module-github-actions-gcloud?ref=v1.4.0"
+
+  project_id                 = var.project_id
+  name                       = "team-online-banking"
+  description                = "Repository to manage all online-banking projects and folders"
+  bucket                     = module.online_banking_bucket.name
+  service_account_email      = google_service_account.online_banking.email
+  github_token               = var.github_token
+  github_owner               = var.github_owner
+  github_template_owner      = var.github_owner
+  github_template_repository = var.github_template_repository
 }
