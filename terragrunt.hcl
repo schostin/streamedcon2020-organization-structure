@@ -16,4 +16,5 @@ inputs = {
   domain          = "sebastianneb.de"
   billing_account = "012A37-911A41-9E7FAA"
   github_owner    = "sebastianneb-streamedcon2020"
+  github_token    = get_env("ADMIN_TOKEN_GITHUB")
 }
